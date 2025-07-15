@@ -9,7 +9,30 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    
+    <script type="text/babel">
+        const { createRoot } = ReactDOM
+        const animalListElement = document.querySelector('.lista-animali')
+        const root = createRoot(animalListElement)
+        root.render(<AnimalList />)
+
+        function AnimalList() {
+            const animals = ["Cane", "Gatto", "Pappagallo", "Leone", "Panda"]
+            return (
+                <div className='list-container'>
+                    <details>
+                        <summary>
+                            <strong>Lista degli animali</strong>
+                        </summary>
+                        {animals.map(animal => {
+                            return (
+                                <li>{animal}</li>
+                            )
+                        })}
+                    </details>
+                </div>
+            )
+        }
+    </script>
 </head>
 
 <body>
