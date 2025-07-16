@@ -34,8 +34,15 @@ img{
 .lista-animali{
     width: 100%;
 }
-.list-container{
-    width: 100%;
-    margin: 0 auto;
+.btn{
+    all: unset;
+    margin-bottom: 10px;
+    background-color: #333;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 20px;
 }
-
+.btn:hover{
+    cursor: pointer;
+    opacity: 0.5;
+}

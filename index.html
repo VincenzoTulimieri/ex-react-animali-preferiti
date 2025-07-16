@@ -14,20 +14,26 @@
         const animalListElement = document.querySelector('.lista-animali')
         const root = createRoot(animalListElement)
         root.render(<AnimalList />)
+        const { useState } = React
 
         function AnimalList() {
+            const [addAnimal, setAddAnimal] = useState(animals)
             const animals = ["Cane", "Gatto", "Pappagallo", "Leone", "Panda"]
+            const animalsChoices = ["Lontra", "Zebra", "Pecora", "Cavallo", "Mucca"];
             return (
-                <div className='list-container'>
+                <div>
+                    <button className='btn'>Aggiungi Animale</button>
                     <details>
                         <summary>
                             <strong>Lista degli animali</strong>
                         </summary>
-                        {animals.map(animal => {
+                        <ul>
+                        {animals.map((animal, index) => {
                             return (
-                                <li>{animal}</li>
+                                <li key={index} >{animal}</li>
                             )
                         })}
+                        </ul>
                     </details>
                 </div>
             )
