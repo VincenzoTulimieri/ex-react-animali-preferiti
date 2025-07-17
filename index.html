@@ -17,12 +17,17 @@
         const { useState } = React
 
         function AnimalList() {
-            const [addAnimal, setAddAnimal] = useState(animals)
-            const animals = ["Cane", "Gatto", "Pappagallo", "Leone", "Panda"]
             const animalsChoices = ["Lontra", "Zebra", "Pecora", "Cavallo", "Mucca"];
+            const [animals, setAnimals] = useState([])
+
+            function addAnimals(){
+                const randomIndex = Math.floor(Math.random() * animalsChoices.length)
+                const randomAnimals = animalsChoices[randomIndex]
+                setAnimals(array => [...array, randomAnimals])
+            }
             return (
-                <div>
-                    <button className='btn'>Aggiungi Animale</button>
+                <>
+                    <button className='btn' onClick={addAnimals}>Aggiungi Animale</button>
                     <details>
                         <summary>
                             <strong>Lista degli animali</strong>
@@ -35,7 +40,7 @@
                         })}
                         </ul>
                     </details>
-                </div>
+                </>
             )
         }
     </script>
