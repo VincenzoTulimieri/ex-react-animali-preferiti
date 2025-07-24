@@ -16,30 +16,68 @@
         root.render(<AnimalList />)
         const { useState } = React
 
+
+        function Modal({
+            title,
+            content,
+            show = false,
+            onClose = () => {},
+            onConfirm = () =>{}
+        }) {
+            return show && ReactDOM.createPortal(
+                <div className="modal-container">
+                    <div className="modal">
+                        <h2>{title}</h2>
+                        <p>{content}</p>
+                        <div>
+                            <button onClick={onConfirm}>Conferma</button>
+                            <button onClick={onClose}>Annulla</button>
+                        </div>
+                        
+                    </div>
+                </div>,
+                document.body
+            )
+        }
+
         function AnimalList() {
             const animalsChoices = ["Lontra", "Zebra", "Pecora", "Cavallo", "Mucca"];
             const [animals, setAnimals] = useState([])
+            const [show,setShow] = useState(false)
+            const [animalName, setAnimalName] = useState('')
 
-            function addAnimals(){
-                const randomIndex = Math.floor(Math.random() * animalsChoices.length)
-                const randomAnimals = animalsChoices[randomIndex]
-                setAnimals(array => [...array, randomAnimals])
+            function addAnimals() {
+                if(!animalName){
+                    return
+                }
+                setAnimals(array => [...array, animalName])
+                setAnimalName('')
+                setShow(false)
             }
             return (
                 <>
-                    <button className='btn' onClick={addAnimals}>Aggiungi Animale</button>
+                    <button className='btn' onClick={() => setShow(true)}>Aggiungi Animale</button>
                     <details>
                         <summary>
                             <strong>Lista degli animali</strong>
                         </summary>
                         <ul>
-                        {animals.map((animal, index) => {
-                            return (
-                                <li key={index} >{animal}</li>
-                            )
-                        })}
+                            {animals.map((animal, index) => {
+                                return (
+                                    <li key={index} >{animal}</li>
+                                )
+                            })}
                         </ul>
                     </details>
+                    <Modal 
+                    show = {show}
+                    onClose = {()=>{setShow(false)}}
+                    onConfirm = {addAnimals}
+                    title = 'Aggiungi animale'
+                    content = {
+                        <input type ='text' value={animalName} onChange = {e => setAnimalName(e.target.value)}/>
+                    }
+                    />
                 </>
             )
         }
